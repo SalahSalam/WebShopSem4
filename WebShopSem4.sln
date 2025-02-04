@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShopSem4", "WebShopSem4.csproj", "{B0E13C25-719F-49B8-B6D0-974A648AD38C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebShopSem4", "WebShopSem4.csproj", "{B0E13C25-719F-49B8-B6D0-974A648AD38C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShopRest", "..\..\..\..\..\webprojekter\Sem4\VS\WebShopRest\WebShopRest.csproj", "{50666BF3-77BC-48D6-A8F1-BD3DB62B03DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +17,15 @@ Global
 		{B0E13C25-719F-49B8-B6D0-974A648AD38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0E13C25-719F-49B8-B6D0-974A648AD38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0E13C25-719F-49B8-B6D0-974A648AD38C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50666BF3-77BC-48D6-A8F1-BD3DB62B03DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50666BF3-77BC-48D6-A8F1-BD3DB62B03DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50666BF3-77BC-48D6-A8F1-BD3DB62B03DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50666BF3-77BC-48D6-A8F1-BD3DB62B03DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {33580047-7D82-43A4-8AA0-5922DE44481C}
 	EndGlobalSection
 EndGlobal
