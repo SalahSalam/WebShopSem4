@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webshop</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .btn {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">Webshop</div>
+        
+        <div id="app">
+            <div class="grid-container">
+                <div>
+                    <h2>Get All (GET)</h2>
+                    <button v-on:click="getAllProducts" class="btn btn-primary">Get all Products</button>
+                    <ul v-if="products.length" class="list-group mt-3">
+                        <li class="list-group-item" v-for="product in products">
+                            {{product.name}} | {{product.serialnumber}} | {{product.category}} | {{product.price}} | {{product.inStock}}
+                        </li>
+                    </ul>
+                    <div v-else class="mt-3">No products</div>
+                </div>
+                
+                <div>
+                    <h2>Add (POST)</h2>
+                    <input v-model="addData.name" placeholder="Name" type="text" class="form-control" />
+                    <input v-model.number="addData.serialNumber" placeholder="Serial Number" type="number" class="form-control" />
+                    <select v-model="addData.category" class="form-control">
+                        <option v-for="(value, key) in categories" :key="key" :value="value">{{ value }}</option>
+                    </select>
+                    <input v-model.number="addData.price" placeholder="Price" type="number" class="form-control" />
+                    <div class="form-check">
+                        <input v-model="addData.inStock" type="checkbox" class="form-check-input" id="inStock" />
+                        <label class="form-check-label" for="inStock">In Stock</label>
+                    </div>
+                    <button v-on:click="addProduct()" class="btn btn-success mt-2">Add</button>
+                    <div class="mt-2">{{addMessage}}</div>
+                </div>
+                
+                <div>
+                    <h2>Delete (DELETE)</h2>
+                    <input v-model.number="deleteId" placeholder="Product ID" type="number" class="form-control" />
+                    <button v-on:click="deleteProduct(deleteId)" class="btn btn-danger mt-2">Delete</button>
+                    <div class="mt-2">{{deleteMessage}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
