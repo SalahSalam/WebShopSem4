@@ -1,4 +1,4 @@
-const baseUrl = "https://localhost:7076/api/Products"
+const baseUrl = "https://localhost:7214/api/Products"
 
 const CategoryEnum = Object.freeze({
     ELECTRONICS: "Electronics",
@@ -17,7 +17,7 @@ Vue.createApp({
             addData: {             // Data for adding a new object
                 name: "", 
                 serialnumber: 0, 
-                category: CategoryEnum.ELECTRONICS,
+                category: 0,
                 price: 0,
                 inStock: true,
 
