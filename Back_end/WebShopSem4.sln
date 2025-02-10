@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebShopSem4", "WebShopSem4.csproj", "{B0E13C25-719F-49B8-B6D0-974A648AD38C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebShop.Repos", "WebShop.Repos.csproj", "{B0E13C25-719F-49B8-B6D0-974A648AD38C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShopRest", "..\WebShopRest\WebShopRest.csproj", "{D459C489-44C2-4144-8528-18A8343822DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShop.API", "..\WebShopRest\WebShop.API.csproj", "{D459C489-44C2-4144-8528-18A8343822DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Shared", "..\Webshop.Shared\Webshop.Shared.csproj", "{0D523DD8-0867-4A41-82BD-0887B7265AC8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Webshop.Services", "..\Webshop.Services\Webshop.Services.csproj", "{8847B99B-D070-4BB3-8F5C-65B5C03DAC12}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{D459C489-44C2-4144-8528-18A8343822DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D459C489-44C2-4144-8528-18A8343822DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D459C489-44C2-4144-8528-18A8343822DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D523DD8-0867-4A41-82BD-0887B7265AC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D523DD8-0867-4A41-82BD-0887B7265AC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D523DD8-0867-4A41-82BD-0887B7265AC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D523DD8-0867-4A41-82BD-0887B7265AC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8847B99B-D070-4BB3-8F5C-65B5C03DAC12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8847B99B-D070-4BB3-8F5C-65B5C03DAC12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8847B99B-D070-4BB3-8F5C-65B5C03DAC12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8847B99B-D070-4BB3-8F5C-65B5C03DAC12}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Back_end\WebShop.Repos.csproj" />
+    <ProjectReference Include="..\Webshop.Shared\Webshop.Shared.csproj" />
+  </ItemGroup>
+
+</Project>
