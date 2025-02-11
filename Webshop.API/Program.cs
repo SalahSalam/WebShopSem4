@@ -1,4 +1,5 @@
-using Webshop.Data;
+using Webshop.Repos;
+using Webshop.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<UserService>();
+builder.Services.AddTransient<EmailService>();
+builder.Services.AddTransient<HashingService>();
+builder.Services.AddTransient<ValidationService>();
+builder.Services.AddHttpClient<PwnedPasswordService>();
 builder.Services.AddSingleton<IUserRepository, UserRepositoryList>();
+//builder.Services.AddSingleton<IUserRepository>(provider => new UserRepositorySQLite(connectionString));
 
 builder.Services.AddCors(options =>
 {

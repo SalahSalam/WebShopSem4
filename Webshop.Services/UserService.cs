@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System.Net.Http;
 using System.Security.Cryptography;
 using Webshop.Repos;
 using Webshop.Repos.Models;
@@ -33,31 +32,31 @@ namespace Webshop.Services
             _pwnedPasswordService = pwnedPasswordService;
         }
 
-        public async Task<User> RegiserUserAsync(UserCredentialsDto userCredentialsDto)
+        public async Task<User> RegisterUserAsync(UserAuthDto userAuthDto)
         {
-            userCredentialsDto.Email = userCredentialsDto.Email.Trim().ToLower();
+            userAuthDto.Email = userAuthDto.Email.Trim().ToLower();
 
-            if (!_validationService.IsEmailValid(userCredentialsDto.Email))
+            if (!_validationService.IsEmailValid(userAuthDto.Email))
             {
                 throw new InvalidOperationException("Invalid email format.");
             }
 
-            if (!_validationService.IsPasswordValidLength(userCredentialsDto.Password))
+            if (!_validationService.IsPasswordValidLength(userAuthDto.Password))
             {
                 throw new InvalidOperationException("Password not strong enough.");
             }
 
-            if (!_validationService.IsPasswordStrong(userCredentialsDto.Password))
+            if (!_validationService.IsPasswordStrong(userAuthDto.Password))
             {
                 throw new InvalidOperationException("Password not strong enough");
             }
 
-            if (await _pwnedPasswordService.IsPasswordPwned(userCredentialsDto.Password))
+            if (await _pwnedPasswordService.IsPasswordPwned(userAuthDto.Password))
             {
                 throw new InvalidOperationException("This password has been found in data breaches. Please choose another.");
             }
 
-            var createdUser = CreateUser(userCredentialsDto.Email, userCredentialsDto.Password);
+            var createdUser = CreateUser(userAuthDto.Email, userAuthDto.Password);
             var addedUser = await _userRepository.AddAsync(createdUser);
             return addedUser;
         }
@@ -93,16 +92,16 @@ namespace Webshop.Services
             }
         }
 
-        public async Task LoginAsync(HttpContext httpContext, UserCredentialsDto userCredentialsDto)
+        public async Task LoginAsync(HttpContext httpContext, UserAuthDto userAuthDto)
         {
-            string rateLimitKey = RateLimitingService.GenerateRateLimitKey(httpContext, userCredentialsDto.VisitorId);
+            string rateLimitKey = RateLimitingService.GenerateRateLimitKey(httpContext, userAuthDto.VisitorId);
 
             if (_rateLimitingService.IsRateLimited(rateLimitKey, "Login"))
             {
                 throw new InvalidOperationException("Too many login attempts. Please try again later.");
             }
 
-            bool isValidUser = await VerifyUserCredentialsAsync(userCredentialsDto.Email, userCredentialsDto.Password);
+            bool isValidUser = await VerifyUserCredentialsAsync(userAuthDto.Email, userAuthDto.Password);
             if (!isValidUser)
             {
                 _rateLimitingService.RegisterAttempt(rateLimitKey, "Login");
@@ -144,15 +143,15 @@ namespace Webshop.Services
             return token;
         }
 
-        public async Task ForgotPasswordAsync(HttpContext httpContext, UserEmailDto userEmailDto, string resetLink)
+        public async Task ForgotPasswordAsync(HttpContext httpContext, ForgotPasswordDto forgotPasswordDto, string resetLink)
         {
-            string rateLimitKey = RateLimitingService.GenerateRateLimitKey(httpContext, userEmailDto.VisitorId);
+            string rateLimitKey = RateLimitingService.GenerateRateLimitKey(httpContext, forgotPasswordDto.VisitorId);
             if (_rateLimitingService.IsRateLimited(rateLimitKey, "PasswordReset"))
             {
                 throw new InvalidOperationException("Too many login attempts. Please try again later.");
             }
 
-            var user = await _userRepository.GetUserByEmailAsync(userEmailDto.Email);
+            var user = await _userRepository.GetUserByEmailAsync(forgotPasswordDto.Email);
             if (user != null && !string.IsNullOrEmpty(user.Email))
             {
                 var token = await GenerateAndSavePasswordResetTokenAsync(user);

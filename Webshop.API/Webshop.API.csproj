@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Back_end\WebShop.Repos.csproj" />
+    <ProjectReference Include="..\Webshop.Repos\Webshop.Repos.csproj" />
     <ProjectReference Include="..\Webshop.Services\Webshop.Services.csproj" />
     <ProjectReference Include="..\Webshop.Shared\Webshop.Shared.csproj" />
   </ItemGroup>

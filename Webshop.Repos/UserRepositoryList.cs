@@ -1,4 +1,4 @@
-﻿using WebShop.Repos.Models;
+﻿using Webshop.Repos.Models;
 
 namespace Webshop.Repos
 {

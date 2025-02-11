@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Webshop.Repos;
+using Webshop.Services;
 using Webshop.Shared.DTOs;
-using WebShop.Repos.Models;
 
 namespace Webshop.API.Controllers
 {
@@ -56,7 +56,7 @@ namespace Webshop.API.Controllers
 
             try
             {
-                var userResponse = await _userService.RegiserUserAsync(userAuthDto);
+                var userResponse = await _userService.RegisterUserAsync(userAuthDto);
                 return CreatedAtAction(nameof(GetUserById), new { id = userResponse.Id }, userResponse);
             }
 
