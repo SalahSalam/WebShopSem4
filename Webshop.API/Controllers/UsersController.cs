@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Webshop.Repos;
+using Webshop.Repos.Models;
 using Webshop.Services;
 using Webshop.Shared.DTOs;
 
@@ -33,8 +34,9 @@ namespace Webshop.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<UserDto>> GetUserById(int id)
+        public async Task<ActionResult<User>> GetUserById(int id)
         {
+            // TODO: ONLY FOR TESTING !!! RETURNS EVERYTHING
             var user = await _userRepository.GetUserByIdAsync(id);
             if (user == null)
             {
@@ -56,8 +58,9 @@ namespace Webshop.API.Controllers
 
             try
             {
-                var userResponse = await _userService.RegisterUserAsync(userAuthDto);
-                return CreatedAtAction(nameof(GetUserById), new { id = userResponse.Id }, userResponse);
+                var user = await _userService.RegisterUserAsync(userAuthDto);
+                var userDto = new UserDto { Id = user.Id, Email = user.Email };
+                return CreatedAtAction(nameof(GetUserById), new { id = userDto.Id }, userDto);
             }
 
             catch (InvalidOperationException ex)
@@ -85,14 +88,14 @@ namespace Webshop.API.Controllers
                 return Ok();
             }
 
-            catch (InvalidOperationException ex)
+            catch (InvalidOperationException)
             {
-                return StatusCode(StatusCodes.Status429TooManyRequests, ex.Message);
+                return StatusCode(StatusCodes.Status429TooManyRequests, "Too many login attempts. Please try again later.");
             }
 
             catch (UnauthorizedAccessException)
             {
-                return Unauthorized();
+                return Unauthorized("You have entered an invalid username or password");
             }
         }
 
