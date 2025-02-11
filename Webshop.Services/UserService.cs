@@ -56,7 +56,13 @@ namespace Webshop.Services
                 throw new InvalidOperationException("This password has been found in data breaches. Please choose another.");
             }
 
-            var createdUser = CreateUser(userAuthDto.Email, userAuthDto.Password);
+            var passwordHash = _hashingService.GenerateHash(userAuthDto.Password);
+            var createdUser = new User
+            {
+                Email = userAuthDto.Email,
+                PasswordHash = passwordHash
+            };
+
             var addedUser = await _userRepository.AddAsync(createdUser);
             return addedUser;
         }
@@ -98,7 +104,7 @@ namespace Webshop.Services
 
             if (_rateLimitingService.IsRateLimited(rateLimitKey, "Login"))
             {
-                throw new InvalidOperationException("Too many login attempts. Please try again later.");
+                throw new InvalidOperationException();
             }
 
             bool isValidUser = await VerifyUserCredentialsAsync(userAuthDto.Email, userAuthDto.Password);
@@ -109,17 +115,6 @@ namespace Webshop.Services
             }
 
             _rateLimitingService.ResetAttempts(rateLimitKey, "Login");
-        }
-
-        public User CreateUser(string email, string password)
-        {
-            var passwordHash = _hashingService.GenerateHash(password);
-
-            return new User
-            {
-                Email = email,
-                PasswordHash = passwordHash
-            };
         }
 
         public async Task<bool> VerifyUserCredentialsAsync(string email, string password)
