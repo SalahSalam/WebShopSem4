@@ -27,8 +27,8 @@ namespace WebShopSem4
             if (Password == null)
                 throw new ArgumentNullException("Password cannot be null");
 
-            if (Password.Length < 12 || Password.Length > 64)
-                throw new ArgumentOutOfRangeException("Password must be at least 12 and no more than 64 characters long");
+            if (Password.Length < 8 || Password.Length > 64)
+                throw new ArgumentOutOfRangeException("Password must be at least 8 and no more than 64 characters long");
         }
         private void ValidatePasswordComplexity()
         {
