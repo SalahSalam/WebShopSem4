@@ -1,5 +1,6 @@
 ﻿namespace Webshop.Services
 {
+    // TODO: If making PasswordService move these methods to that class.
     public class PwnedPasswordService
     {
         private readonly HttpClient _httpClient;
