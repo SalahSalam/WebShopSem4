@@ -143,7 +143,7 @@ namespace Webshop.Services
             string rateLimitKey = RateLimitingService.GenerateRateLimitKey(httpContext, forgotPasswordDto.VisitorId);
             if (_rateLimitingService.IsRateLimited(rateLimitKey, "PasswordReset"))
             {
-                throw new InvalidOperationException("Too many login attempts. Please try again later.");
+                throw new InvalidOperationException("Too many reset attempts. Please try again later.");
             }
 
             var user = await _userRepository.GetUserByEmailAsync(forgotPasswordDto.Email);
