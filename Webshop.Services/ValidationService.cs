@@ -15,12 +15,5 @@ namespace Webshop.Services
             return password.Length >= 8 &&
                    password.Length <= 64;
         }
-
-
-        public bool IsPasswordStrong(string password)
-        {
-            var score = Zxcvbn.Core.EvaluatePassword(password).Score; // Returns 0-4: very weak to very strong
-            return score >= 2; // must be atleast fair
-        }
     }
 }

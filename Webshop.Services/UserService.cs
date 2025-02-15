@@ -13,7 +13,7 @@ namespace Webshop.Services
         private readonly IUserRepository _userRepository;
         private readonly ValidationService _validationService;
         private readonly RateLimitingService _rateLimitingService;
-        private readonly PwnedPasswordService _pwnedPasswordService;
+        private readonly PasswordService _passwordService;
 
         public UserService(
             EmailService emailService,
@@ -21,7 +21,7 @@ namespace Webshop.Services
             IUserRepository userRepository,
             ValidationService validationService,
             RateLimitingService rateLimitingService,
-            PwnedPasswordService pwnedPasswordService
+            PasswordService passwordService
             )
         {
             _emailService = emailService;
@@ -29,7 +29,7 @@ namespace Webshop.Services
             _userRepository = userRepository;
             _validationService = validationService;
             _rateLimitingService = rateLimitingService;
-            _pwnedPasswordService = pwnedPasswordService;
+            _passwordService = passwordService;
         }
 
         public async Task<User> RegisterUserAsync(UserAuthDto userAuthDto)
@@ -46,12 +46,12 @@ namespace Webshop.Services
                 throw new InvalidOperationException("Password not strong enough.");
             }
 
-            if (!_validationService.IsPasswordStrong(userAuthDto.Password))
+            if (!_passwordService.IsPasswordStrong(userAuthDto.Password))
             {
                 throw new InvalidOperationException("Password not strong enough");
             }
 
-            if (await _pwnedPasswordService.IsPasswordPwned(userAuthDto.Password))
+            if (await _passwordService.IsPasswordPwned(userAuthDto.Password))
             {
                 throw new InvalidOperationException("This password has been found in data breaches. Please choose another.");
             }
@@ -80,7 +80,7 @@ namespace Webshop.Services
             }
 
             if (!_validationService.IsPasswordValidLength(resetPasswordDto.NewPassword) ||
-                !_validationService.IsPasswordStrong(resetPasswordDto.NewPassword))
+                !_passwordService.IsPasswordStrong(resetPasswordDto.NewPassword))
             {
                 throw new InvalidOperationException("Password does not meet the required criteria.");
             }
