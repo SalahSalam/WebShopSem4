@@ -30,13 +30,13 @@ namespace Webshop.API.Controllers
             _rateLimitingService = rateLimitingService;
         }
 
+        // TODO: ONLY FOR TESTING !!! RETURNS EVERYTHING
         // GET api/<UsersController>/{id}
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<User>> GetUserById(int id)
         {
-            // TODO: ONLY FOR TESTING !!! RETURNS EVERYTHING
             var user = await _userRepository.GetUserByIdAsync(id);
             if (user == null)
             {
